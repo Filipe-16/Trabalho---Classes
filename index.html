@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes e Objetos</title>
+    <style>
+        p{
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav"></div>
+    <div class="cont">
+        <h1 class="ttl">Informações Das Turmas:</h1>
+        <input type="button" onclick="imprimirDados()" id="acc" value="Acessar">
+    </div>
+    <div class="kin">
+        <div id="t1"></div>
+        <div id="t2"></div>
+    </div>
+    <script>
+        function imprimirDados(){
+            let r1=document.createElement('pre');
+            let r2=document.createElement('pre');
+            r1.textContent=t1.imprimeDados();
+            r2.textContent=t2.imprimeDados();
+            document.getElementById("t1").appendChild(r1);
+            document.getElementById("t2").appendChild(r2);
+        }
+        class Pessoa{
+            constructor(nome,cpf){
+                this.nome=nome;
+                this.cpf=cpf;
+            }
+        }
+        class Professor extends Pessoa{
+            constructor(nome,cpf,area,telefone){
+                super(nome,cpf)
+                this.area=area;
+                this.telefone=telefone;
+            }
+        }
+        class Aluno extends Pessoa{
+            constructor(nome,cpf,matricula){
+                super(nome,cpf)
+                this.matricula=matricula;
+            }
+        }
+        class Turma{
+            constructor(professor,alunos,identificacao){
+                this.professor=professor;
+                this.alunos=alunos;
+                this.identificacao=identificacao;
+            }
+            imprimeDados(){
+                let infoTurma=`Turma ${this.identificacao}\n\n`;
+                infoTurma+=`Professor ${this.professor.nome}(Área: ${this.professor.area},Telefone: ${this.professor.telefone})\n`;
+                infoTurma+="\nAlunos:\n";
+                this.alunos.forEach(aluno =>{
+                    infoTurma+=`${aluno.nome}(Matrícula: ${aluno.matricula},CPF: ${aluno.cpf})\n`;
+                });
+                return infoTurma;
+            }
+        }
+        let profe1=new Professor('Rossana','12345678910','Português','(53) 9811612186');
+        let profe2=new Professor('Planta','12345678911','Matemática','(53) 9811612182');
+        let a1=new Aluno('Thiago','11111133311','2022100001');
+        let a2=new Aluno('Canto','11111133322','2022100002');
+        let a3=new Aluno('Arthur','11111133355','2022100003');
+        let a4=new Aluno('Théo','11111133344','2022100004');
+        let a5=new Aluno('Gabriel','11111133333','2020100001'); 
+        let a6=new Aluno('Filipe','11111133366','2020100002');
+        let t1=new Turma(profe1,[a1,a2,a3,a4],'1C');
+        let t2=new Turma(profe2,[a3,a4,a5,a6],'2C');
+    </script>
+</body>
+</html>
